@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Shopping.API</name>
+    </assembly>
+    <members>
+        <member name="T:Shopping.API.Controller.ProductController">
+            <summary>
+            Product Controller
+            </summary>
+        </member>
+        <member name="M:Shopping.API.Controller.ProductController.Get">
+            <summary>
+            Get Products
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

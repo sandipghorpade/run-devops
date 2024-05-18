@@ -1,9 +1,34 @@
 version: '3.4'
 
 services:
-  shopping.client:
+  
+  shopping.api:
+    container_name: shoppingapi
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_HTTP_PORTS=8080
+      - "DatabaseSettings:ConnectionString=mongodb://shoppingdb:27017"
+      - "DatabaseSettings:DatabaseName=ProductDb"
+      - "DatabaseSettings:CollectionName=Products"
+      
     ports:
-      - "8080"
+      - "8000:8080"
+    depends_on:
+      - shopping.db
+
+  shopping.client:
+    container_name: shoppingapiclient
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - "ShoppingApiUrl=http://shopping.api:8080"
+    ports:
+      - "8001:8080"
+    depends_on:
+      - shopping.api
+
+  shopping.db:
+    container_name: shoppingdb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - ${WEBAPP_STORAGE_HOME}/site:/data/db
